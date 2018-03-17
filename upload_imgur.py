@@ -7,5 +7,6 @@ cap.release()
 cv2.imwrite('img.png', frame)
 
 client = imgurpython.ImgurClient(client_id, client_secret)
-url = client.upload_from_path('img.png')['link']
+client.set_user_auth(access_token, refresh_token)
+url = client.upload_from_path('img.png', anon=False)['link']
 print(url)
