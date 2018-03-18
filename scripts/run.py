@@ -23,22 +23,23 @@ twilio_client = twilio.rest.Client(env['TWILIO_ACCOUNT_SID'], env['TWILIO_AUTH_T
 fileName = 'image.jpg'
 visual_recognition = VisualRecognitionV3(
     '2016-05-20',
-    api_key='fdbed6c3c7053723edbcdbc1259bc96e97b14c4e') # 'fdbed6c3c7053723edbcdbc1259bc96e97b14c4e')
+    api_key='143b3817d38a28bfef4e3b1e8eb5b7ead9a56b3b') # 'fdbed6c3c7053723edbcdbc1259bc96e97b14c4e')
 send = lambda x: s.write(str(x).encode())
 
 @app.route("/sms", methods=['GET', 'POST'])
 def sms_reply():
+    print('Here')
     body = request.values.get('Body', None)
     # Start our TwiML response
     resp = MessagingResponse()
     try:
         # Determine the right reply for this message
-        if body == 'start':
+        if body == 'go':
             resp.message("Starting Patrol")
             start_run()
-        elif body == 'stop':
-            resp.message("Stopping Patrol")
-            sys.exit()
+        elif body == 'no':
+            output = subprocess.check_output(['pkill', '-f', 'run.py'])
+            resp.message("Stopping Patrol. Output: %s" % output)
         return str(resp)
 
     except:
@@ -52,7 +53,7 @@ def call_watson():
         response = visual_recognition.classify(
             images_file,
             parameters=json.dumps({
-                'classifier_ids': ["peopleRecognition_751539008"],
+                'classifier_ids': ["peopleRecognition_1329776309"],
                 'threshold': 0
             }))
 
@@ -81,9 +82,10 @@ def start_run():
     print("starting")
     while True:
         try:
-            dir = random.choice([1,5])
+
+            direction = random.choice([1, 5])
             for _ in range(4):
-                send(dir)
+                send(direction)
                 time.sleep(1)
                 send(0)
                 os.system('./image_capture.sh')
