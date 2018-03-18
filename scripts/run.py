@@ -81,8 +81,9 @@ def start_run():
     print("starting")
     while True:
         try:
+            dir = random.choice([1,5])
             for _ in range(4):
-                send(random.choice([1,5]))
+                send(dir)
                 time.sleep(1)
                 send(0)
                 os.system('./image_capture.sh')
