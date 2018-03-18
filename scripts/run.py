@@ -47,6 +47,6 @@ if __name__ == "__main__":
 
     while True:
         direction = random.randint(1, 5)
-        s.write(str(direction))
+        s.write(str(direction).encode())
         time.sleep(1)
         call_watson()
