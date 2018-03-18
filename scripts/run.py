@@ -53,6 +53,7 @@ if __name__ == "__main__":
             time.sleep(1)
             send(0)
             subprocess.check_output('./image_capture.sh')
-            call_watson()
+            #call_watson()
 
         send(random.choice([2, 3, 4]))
+
