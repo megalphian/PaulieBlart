@@ -8,19 +8,27 @@ double angle_rad = PI/180.0;
 double angle_deg = 180.0/PI;
 MeDCMotor motor_9(9);
 MeDCMotor motor_10(10);
+MeUltrasonicSensor ultrasonic_3(3);
 
-
+char mode;
 
 void setup(){
     Serial.begin(9600);
 }
 
 void loop(){
-    char mode;
-    
+    if((ultrasonic_3.distanceCm()) < (30)){
+      Serial.println("Obstacle detected");
+      motor_9.run(0);
+      motor_10.run(-150);
+      delay(2500);
+      mode = '3';
+      return;
+    }
     if(Serial.available() > 0) {
       mode = Serial.read();
-    Serial.println(mode);
+      Serial.println(mode);
+    }
     
     switch(mode){
       case '0':
@@ -48,10 +56,7 @@ void loop(){
           motor_10.run(-100);
           break;
       default:
-        Serial.println("Invalid");
         mode = 0;
-    }
-    
     }
     
     _loop();

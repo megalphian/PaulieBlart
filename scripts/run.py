@@ -1,5 +1,7 @@
 import json
+import serial
 from watson_developer_cloud import VisualRecognitionV3
+
 
 fileName = 'test.jpg'
 visual_recognition = VisualRecognitionV3(
@@ -14,3 +16,7 @@ with open(fileName, 'rb') as images_file:
             'threshold': 0
         }))
 print(json.dumps(classes, indent=2))
+
+if __name__ == "__main__":
+    
+    pass
