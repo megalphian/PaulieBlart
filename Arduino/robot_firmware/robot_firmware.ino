@@ -22,7 +22,10 @@ void loop(){
       motor_9.run(0);
       motor_10.run(-150);
       delay(2500);
-      mode = '3';
+      motor_9.run(100);
+      motor_10.run(-100);
+      delay(2000);
+      mode = '0';
       return;
     }
     if(Serial.available() > 0) {
