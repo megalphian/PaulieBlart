@@ -4,6 +4,7 @@ import twilio.rest
 import serial
 import random
 import time
+import subprocess
 from watson_developer_cloud import VisualRecognitionV3
 
 fileName = 'test.jpg'
@@ -44,9 +45,14 @@ def call_watson():
 
 if __name__ == "__main__":
     s = serial.Serial('/dev/tty.usbserial', 9600)
+    send = lambda x: s.write(str(x).encode())
 
     while True:
-        direction = random.randint(1, 5)
-        s.write(str(direction).encode())
-        time.sleep(1)
-        call_watson()
+        for _ in range(4):
+            send(1)
+            time.sleep(1)
+            send(0)
+            subprocess.check_output('./image_capture.sh')
+            call_watson()
+
+        send(random.choice([2, 3, 4]))
