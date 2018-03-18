@@ -1,7 +1,9 @@
 import json
 import imgurpython
 import twilio.rest
+import serial
 from watson_developer_cloud import VisualRecognitionV3
+
 
 fileName = 'test.jpg'
 visual_recognition = VisualRecognitionV3(
@@ -16,6 +18,7 @@ with open(fileName, 'rb') as images_file:
             'classifier_ids': ['peopleRecognition_1276924708'],
             'threshold': 0
         }))
+
 results = { row['class'] : row['score'] for row in classes['images'][0]['classifiers'][0]['classes'] }
 
 if results:
