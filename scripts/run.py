@@ -23,7 +23,7 @@ twilio_client = twilio.rest.Client(env['TWILIO_ACCOUNT_SID'], env['TWILIO_AUTH_T
 fileName = 'image.jpg'
 visual_recognition = VisualRecognitionV3(
     '2016-05-20',
-    api_key='143b3817d38a28bfef4e3b1e8eb5b7ead9a56b3b') # 'fdbed6c3c7053723edbcdbc1259bc96e97b14c4e')
+    api_key='fdbed6c3c7053723edbcdbc1259bc96e97b14c4e') # 'fdbed6c3c7053723edbcdbc1259bc96e97b14c4e')
 send = lambda x: s.write(str(x).encode())
 
 @app.route("/sms", methods=['GET', 'POST'])
@@ -53,7 +53,7 @@ def call_watson():
         response = visual_recognition.classify(
             images_file,
             parameters=json.dumps({
-                'classifier_ids': ["peopleRecognition_1329776309"],
+                'classifier_ids': ["peopleRecognition_751539008"],
                 'threshold': 0
             }))
 
