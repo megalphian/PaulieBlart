@@ -13,6 +13,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 
 app = Flask(__name__)
 s = serial.Serial('/dev/ttyUSB0', 9600)
+env = os.environ
 
 imgur_client = imgurpython.ImgurClient(env['IMGUR_CLIENT_ID'], env['IMGUR_CLIENT_SECRET'])
 imgur_client.set_user_auth(env['IMGUR_ACCESS_TOKEN'], env['IMGUR_REFRESH_TOKEN'])
@@ -24,8 +25,6 @@ visual_recognition = VisualRecognitionV3(
     '2016-05-20',
     api_key='fdbed6c3c7053723edbcdbc1259bc96e97b14c4e') # 'fdbed6c3c7053723edbcdbc1259bc96e97b14c4e')
 send = lambda x: s.write(str(x).encode())
-
-env = os.environ
 
 @app.route("/sms", methods=['GET', 'POST'])
 def sms_reply():
