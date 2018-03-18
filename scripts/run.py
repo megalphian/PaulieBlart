@@ -14,11 +14,11 @@ def sms_reply():
     try:
         # Determine the right reply for this message
         if body == 'go':
-            subprocess.check_output(['python3', 'control_bot.py'])
+            subprocess.call(['python3', 'control_bot.py'])
             resp.message("Starting Patrol")
         elif body == 'no':
-            output = subprocess.check_output(['pkill', '-f', 'control_bot.py'])
-            resp.message("Stopping Patrol. Output: %s" % output)
+            subprocess.call(['pkill', '-f', 'control_bot.py'])
+            resp.message("Stopping Patrol")
         return str(resp)
 
     except:
