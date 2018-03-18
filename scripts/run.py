@@ -1,3 +1,5 @@
+import os, sys
+
 import json
 import imgurpython
 import twilio.rest
@@ -44,16 +46,21 @@ def call_watson():
             print(res)
 
 if __name__ == "__main__":
-    s = serial.Serial('/dev/tty.usbserial', 9600)
+    s = serial.Serial('/dev/ttyUSB0', 9600)
     send = lambda x: s.write(str(x).encode())
 
     while True:
-        for _ in range(4):
-            send(1)
-            time.sleep(1)
-            send(0)
-            subprocess.check_output('./image_capture.sh')
-            #call_watson()
-
-        send(random.choice([2, 3, 4]))
+        try:
+            for _ in range(4):
+                send(1)
+                time.sleep(1)
+                send(0)
+                os.system('./image_capture.sh')
+                #call_watson()
+            send(random.choice([2, 3, 4]))
+            time.sleep(5)
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+            raise
+            break
 

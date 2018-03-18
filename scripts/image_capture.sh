@@ -1,2 +1,2 @@
-fswebcam -r 3264x2448 --no-banner -S 2 ../webcam/image.jpg
+fswebcam -r 640x480 --no-banner -S 2 image.jpg
 
