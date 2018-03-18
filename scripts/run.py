@@ -17,7 +17,8 @@ def sms_reply():
             subprocess.call(['python3', 'control_bot.py'])
             resp.message("Starting Patrol")
         elif body == 'no':
-            subprocess.call(['pkill', '-f', 'control_bot.py'])
+            # subprocess.call(['pkill', '-f', 'control_bot.py'])
+            os.system("kill $(ps aux | grep '[p]ython control_bot.py' | awk '{print $2}')")
             resp.message("Stopping Patrol")
         return str(resp)
 
