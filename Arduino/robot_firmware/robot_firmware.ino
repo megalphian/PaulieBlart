@@ -19,7 +19,7 @@ void setup(){
 void loop(){
     if((ultrasonic_3.distanceCm()) < (30)){
       Serial.println("Obstacle detected");
-      motor_9.run(0);
+      motor_9.run(-150);
       motor_10.run(-150);
       delay(2500);
       motor_9.run(100);
@@ -39,24 +39,24 @@ void loop(){
           motor_10.run(0);
           break;
         case '1':
-          motor_9.run(100);
+          motor_9.run(200);
           motor_10.run(0);
           break;
         case '2':
-          motor_9.run(100);
-          motor_10.run(-50);
+          motor_9.run(200);
+          motor_10.run(-100);
           break;
         case '3':
-          motor_9.run(100);
-          motor_10.run(-100);
+          motor_9.run(200);
+          motor_10.run(-200);
           break;
         case '4':
-          motor_9.run(50);
-          motor_10.run(-100);
+          motor_9.run(100);
+          motor_10.run(-200);
           break;
         case '5':
           motor_9.run(0);
-          motor_10.run(-100);
+          motor_10.run(-200);
           break;
       default:
         mode = 0;
