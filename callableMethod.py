@@ -12,6 +12,7 @@ visual_recognition = VisualRecognitionV3(
     '2016-05-20',
     api_key='fdbed6c3c7053723edbcdbc1259bc96e97b14c4e')
 
+
 ##########  identifyTargets  #######################################
 # Use:  Takes picture from camera on mobile platform.
 #       Then sends it to the Watson API.
@@ -41,4 +42,35 @@ def identifyTargets():
         with open(fileName, 'w') as outfile:
             json.dump(classes, outfile, indent=2)
 
-identifyTargets()
+################# Parse Text ########################
+# Use:  Parses saved JSON file to names and scores
+#       Saves the names and scores in a 2d list:
+#       [ (name1, score 1), (name2, score2) ]
+#####################################################
+def parseText(captureNum):
+    # Opens file of number passed in
+    file = open('json' + str(captureNum) + '.txt', 'r')
+    lines = file.readlines()
+
+    # Creates fresh keywords variable
+    keywords = []
+
+    for i in range(len(lines)):
+        if lines[i].find('"class":') > 0:
+            keywords.append((lines[i][24:lines[i].find(',')-1], lines[i+1][lines[i+1].find(':')+1:].strip()))
+
+    return keywords
+
+def getName():
+    keywords = parseText(imageNumber)
+    highest = 0
+    highestIndex = 0
+
+    for i in range(len(keywords)):
+        if float(keywords[i][1]) > highest:
+            highest = float(keywords[i][1])
+            highestIndex = i
+
+    return keywords[highestIndex][0]
+
+print(getName())
