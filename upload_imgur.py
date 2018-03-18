@@ -1,4 +1,4 @@
-import cv2
+import pygame.camera
 import imgurpython
 import twilio.rest
 import os
@@ -6,10 +6,11 @@ import os
 env = lambda s: os.environ[s]
 
 # get capture from video feed
-cap = cv2.VideoCapture(0)
-ret, frame = cap.read()
-cap.release()
-cv2.imwrite('img.png', frame)
+pygame.camera.init()
+cam_list = pygame.camera.list_cameras()
+camera = pygame.camera.Camera(cam_list[0], (640, 480))
+camera.start()
+pygame.image.save(camera.get_image(), 'img.png')
 
 # upload to imgur
 imgur_client = imgurpython.ImgurClient(env('IMGUR_CLIENT_ID'), env('IMGUR_CLIENT_SECRET'))
