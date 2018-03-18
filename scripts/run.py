@@ -38,8 +38,8 @@ def sms_reply():
             resp.message("Starting Patrol")
             start_run()
         elif body == 'no':
-            resp.message("Stopping Patrol")
-            sys.exit()
+            output = subprocess.check_output(['pkill', '-f', 'run.py'])
+            resp.message("Stopping Patrol. Output: %s" % output)
         return str(resp)
 
     except:
@@ -82,8 +82,9 @@ def start_run():
     print("starting")
     while True:
         try:
+            direction = random.choice([1, 5])
             for _ in range(4):
-                send(random.choice([1,5]))
+                send(direction)
                 time.sleep(1)
                 send(0)
                 os.system('./image_capture.sh')
