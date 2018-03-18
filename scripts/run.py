@@ -56,7 +56,7 @@ if __name__ == "__main__":
     while True:
         try:
             for _ in range(4):
-                send(1)
+                send(random.choice([1,5]))
                 time.sleep(1)
                 send(0)
                 os.system('./image_capture.sh')
